@@ -2,8 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Exports\SortasiPlasmaExport;
 use App\SortasiPlasma;
 use Illuminate\Http\Request;
+use Maatwebsite\Excel\Facades\Excel;
+
 
 class SortasiPlasmaController extends Controller{
     public function index(Request $request, $kode_plasma)
@@ -77,6 +80,12 @@ class SortasiPlasmaController extends Controller{
         $sortasiPlasma = $sortasiPlasma->get();
 
         return response()->json($sortasiPlasma);
+    }
+
+    //export
+    public function export(Request $request)
+    {
+        return Excel::download(new SortasiPlasmaExport, 'sortasi_plasma.xlsx');
     }
 
     // tbsDipulangkan
