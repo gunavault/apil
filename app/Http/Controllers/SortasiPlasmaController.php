@@ -83,9 +83,20 @@ class SortasiPlasmaController extends Controller{
     }
 
     //export
+    public function viewDataExport(Request $request)
+    {
+        if ($request->kode_plasma == 'Semua'){
+            $data = SortasiPlasma::whereBetween('tanggal', [$request->str,$request->end])->get();
+        }
+        else{
+            $data = SortasiPlasma::whereBetween('tanggal', [$request->str,$request->end])->where('kode_plasma', $request->kode_plasma)->get();
+        }
+        return response()->json($data);
+    }
+
     public function export(Request $request)
     {
-        return Excel::download(new SortasiPlasmaExport, 'sortasi_plasma.xlsx');
+        return Excel::download(new SortasiPlasmaExport($request->str,$request->end,$request->kode_plasma), 'sortasi_plasma.xlsx');
     }
 
     // tbsDipulangkan

@@ -58,4 +58,5 @@ Route::get('sortasi_plasma/harga/{id}',[HargaController::class,'index']);
 Route::get('report_harga/{kode_plasma}',[HargaController::class,'reportHarga'])->name('harga.reportHarga');
 
 Route::get('export_sortasi/{kode_plasma}/{str}/{end}',[SortasiPlasmaController::class,'export'])->name('sortasi.export');
+Route::get('viewDataExport/{kode_plasma}/{str}/{end}',[SortasiPlasmaController::class,'viewDataExport'])->name('sortasi.viewDataExport');
 

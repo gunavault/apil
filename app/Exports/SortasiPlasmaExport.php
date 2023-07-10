@@ -14,6 +14,14 @@ class SortasiPlasmaExport implements FromView, WithStyles
     /**
     * @return \Illuminate\Support\Collection
     */
+
+    public function __construct(string $str, string $end, string $kbn)
+    {
+        $this->start = $str;
+        $this->end = $end;
+        $this->kebun = $kbn;
+    }
+
     public function view():View
     {
         return view(
@@ -46,8 +54,8 @@ class SortasiPlasmaExport implements FromView, WithStyles
              c.catatan,
             c.`status`,
              c.on_create'))
-                        ->where('c.kode_kebun', 'STA')
-                        ->whereBetween('c.tanggal', ['2023-02-01','2023-02-22'])
+                        ->where('c.kode_kebun', $this->kebun)
+                        ->whereBetween('c.tanggal', [$this->start,$this->end])
                         ->orderBy('c.kode_kebun')
                         ->get()
             ]
