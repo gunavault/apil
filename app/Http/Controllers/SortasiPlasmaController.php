@@ -89,7 +89,7 @@ class SortasiPlasmaController extends Controller{
             $data = SortasiPlasma::whereBetween('tanggal', [$request->str,$request->end])->get();
         }
         else{
-            $data = SortasiPlasma::whereBetween('tanggal', [$request->str,$request->end])->where('kode_plasma', $request->kode_plasma)->get();
+            $data = SortasiPlasma::whereBetween('tanggal', [$request->str,$request->end])->where('kode_kebun', $request->kode_plasma)->get();
         }
         return response()->json($data);
     }
