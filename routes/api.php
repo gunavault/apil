@@ -8,6 +8,7 @@ use App\Http\Controllers\PemasokController;
 use App\Http\Controllers\SortasiPlasmaController;
 use App\Http\Controllers\HargaController;
 use App\Http\Controllers\PelanggaranController;
+use App\Http\Controllers\VerifikasiKendaraanController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -61,5 +62,7 @@ Route::get('report_harga/{kode_plasma}', [HargaController::class, 'reportHarga']
 Route::get('export_sortasi/{kode_plasma}/{str}/{end}', [SortasiPlasmaController::class, 'export'])->name('sortasi.export');
 Route::get('viewDataExport/{kode_plasma}/{str}/{end}', [SortasiPlasmaController::class, 'viewDataExport'])->name('sortasi.viewDataExport');
 
-// pelanggaran 
-Route::get('/pelanggaran', [PelanggaranController::class, 'index']);
+// reportnorma 
+Route::get('/reportnorma', [PelanggaranController::class, 'index']);
+//verifikasi kendaraan
+Route::get('verifikasi-kendaraan', 'VerifikasiKendaraanController@checkVerifikasi');
