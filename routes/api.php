@@ -65,4 +65,4 @@ Route::get('viewDataExport/{kode_plasma}/{str}/{end}', [SortasiPlasmaController:
 // reportnorma 
 Route::get('/reportnorma', [PelanggaranController::class, 'index']);
 //verifikasi kendaraan
-Route::post('verifikasi-kendaraan', [VerifikasiKendaraanController::class, 'checkVerifikasi']);
+Route::get('verifikasi-kendaraan', 'VerifikasiKendaraanController@checkVerifikasi');
