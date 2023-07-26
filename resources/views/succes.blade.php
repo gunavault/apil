@@ -15,19 +15,18 @@
             <div class="mt-3 alert alert-success ">
                 <p><strong>Message:</strong> {{ $message }}</p>
                 <!-- You can customize the success message here -->
-                <p>Congratulations, the data for the given vehicle and supplier exists!</p>
+                <p>Congratulations, the data for the given vehicle and supplier exists! {{$pemasok}}</p>
             </div>
         @else
             <div class="alert alert-danger mt-3">
                 <strong>Status:</strong> {{ $status }}
             </div>
-            <div class="mt-3">
+            <div class="mt-3 alert-danger mt-3" >
                 <p><strong>Message:</strong> {{ $message }}</p>
                 <!-- You can customize the error message here -->
                 <p>Sorry, the data for the given vehicle and supplier does not exist. A notification has been added.</p>
             </div>
             <div class="container mt-5">
-        <h1>Generate QR Code</h1>
         @if(session('success'))
             <div class="alert alert-success mt-3">
                 {{ session('success') }}
@@ -38,19 +37,6 @@
                 {{ session('error') }}
             </div>
         @endif
-
-        <form action="{{ route('generate.qr.code') }}" method="POST">
-            @csrf
-            <div class="form-group mt-3">
-                <label for="nopol">Nopol:</label>
-                <input type="text" class="form-control" name="nopol" id="nopol" required>
-            </div>
-            <div class="form-group mt-3">
-                <label for="pemasok">Pemasok:</label>
-                <input type="text" class="form-control" name="pemasok" id="pemasok" required>
-            </div>
-            <button type="submit" class="btn btn-primary mt-3">Generate QR Code</button>
-        </form>
     </div>
         @endif
     </div>

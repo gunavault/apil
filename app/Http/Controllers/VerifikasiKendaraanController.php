@@ -76,11 +76,18 @@ public function viewverifikasi(Request $request) {
     if ($exists) {
         // Assuming you want to display this message in the view as well
         $message = 'Data kendaraan dengan nomor polisi ' . $nopol . ' dan pemasok ' . $pemasok . ' Terverifikasi.';
-        return view('succes', compact('namapemasokdata','exists', 'message'))
+        return view('succes', compact('namapemasokdata','exists', 'message', 'pemasok' ))
             ->with('status', 'success');
     } else {
         // Assuming you want to display this message in the view as well
         $message = 'Data kendaraan tidak ada. Notifikasi telah ditambahkan.';
+        DB::table('notifikasiwa')->insert([
+            'nomor_hp_pemasok' =>"089516370731", // Assuming you still want to pass this parameter
+            'pemasok' => $pemasok,
+            'file' => 'www.google.com',
+            'pesan' => "Tolong daftarkan kendaraan dengan nopol #" . $nopol . "# dan pemasok #" . $pemasok . "#",
+            'status' => null,
+        ]);
         return view('succes', compact('namapemasokdata','exists', 'message'))
             ->with('status', 'error')
             ->with('notifikasi', 'Data kendaraan tidak ada. Notifikasi telah ditambahkan.');
@@ -102,8 +109,6 @@ public function createQRLink(Request $request)
         $encodedQrLink = urlencode($qrLink);
 
          // Save the QR code image to a public directory (e.g., 'storage/qr_codes')
-        $qrImagePath = public_path('temp/' . $nopol . '_' . $pemasok . '.png');
-        QrCode::size(300)->generate($qrLink, $qrImagePath);
 
         // Save the QR code link to the database (assuming you have a valid database connection)
         $id = DB::table('verifikasikendaraan')->insertGetId([
@@ -119,7 +124,7 @@ public function createQRLink(Request $request)
         
 
         // Optionally, you can redirect to a success page or return a response with the generated QR code link
-        return View::make('qr_code_generated', ['qr_link' => $encodedQrLink,'link'=> $qrLink, 'qr_image_path' => $qrImagePath]);
+        return View::make('qr_code_generated', ['qr_link' => $encodedQrLink,'link'=> $qrLink, 'nopol' => $nopol, 'pemasok' => $pemasok]);
     }
 
 }
